@@ -19,32 +19,32 @@ class Address
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "readStore", "writeStore"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "readStore", "writeStore"})
      */
     private $street;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "readStore", "writeStore"})
      */
     private $number;
 
     /**
      * @ORM\Column(type="string", length=15)
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "readStore", "writeStore"})
      */
     private $postalCode;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\City")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "readStore", "writeStore"})
      */
     private $city;
 

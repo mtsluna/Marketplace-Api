@@ -14,21 +14,23 @@ class ProductDetail
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"read", "write"})
+     * @Groups({"readProduct", "writeProduct", "readStore", "writeStore"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"read", "write"})
+     * @Groups({"readProduct", "writeProduct", "readStore", "writeStore"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"read", "write"})
+     * @Groups({"readProduct", "writeProduct", "readStore", "writeStore"})
      */
     private $value;
+
+    private $product;
 
     public function getId(): ?int
     {

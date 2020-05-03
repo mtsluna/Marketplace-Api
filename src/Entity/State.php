@@ -19,20 +19,20 @@ class State
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "readStore", "writeStore"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "readStore", "writeStore"})
      */
     private $name;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Country", cascade={"persist"})
      * @ORM\JoinColumn()
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "readStore", "writeStore"})
      */
     private $country;
 

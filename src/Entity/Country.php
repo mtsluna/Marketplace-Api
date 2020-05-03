@@ -19,13 +19,13 @@ class Country
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "readStore", "writeStore"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "readStore", "writeStore"})
      */
     private $name;
 

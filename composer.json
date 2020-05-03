@@ -15,7 +15,8 @@
         "symfony/framework-bundle": "5.0.*",
         "symfony/maker-bundle": "^1.15",
         "symfony/orm-pack": "^1.0",
-        "symfony/yaml": "5.0.*"
+        "symfony/yaml": "5.0.*",
+        "vich/uploader-bundle": "^1.13"
     },
     "require-dev": {
     },

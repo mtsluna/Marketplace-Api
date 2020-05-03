@@ -21,7 +21,7 @@ class Client
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "readPurchase", "writePurchase"})
      */
     private $id;
 
@@ -50,9 +50,15 @@ class Client
      */
     private $address;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Purchase", mappedBy="client", orphanRemoval=true)
+     * @Groups({"read", "write"})
+     */
+    private $purchases;
+
     public function __construct()
     {
-
+        $this->purchases = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -104,6 +110,37 @@ class Client
     public function setAddress(?Address $address): self
     {
         $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Purchase[]
+     */
+    public function getPurchases(): Collection
+    {
+        return $this->purchases;
+    }
+
+    public function addPurchase(Purchase $purchase): self
+    {
+        if (!$this->purchases->contains($purchase)) {
+            $this->purchases[] = $purchase;
+            $purchase->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removePurchase(Purchase $purchase): self
+    {
+        if ($this->purchases->contains($purchase)) {
+            $this->purchases->removeElement($purchase);
+            // set the owning side to null (unless already changed)
+            if ($purchase->getClient() === $this) {
+                $purchase->setClient(null);
+            }
+        }
 
         return $this;
     }

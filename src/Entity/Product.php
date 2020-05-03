@@ -10,8 +10,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
- *     normalizationContext={"groups"={"read"}},
- *     denormalizationContext={"groups"={"write"}}
+ *     normalizationContext={"groups"={"readProduct"}},
+ *     denormalizationContext={"groups"={"writeProduct"}}
  * )
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
  */
@@ -21,41 +21,69 @@ class Product
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"read", "write"})
+     * @Groups({"read", "write", "readProduct", "writeProduct", "readStore", "writeStore", "readPurchase", "writePurchase", "readPurchaseDetail", "writePurchaseDetail"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"read", "write"})
+     * @Groups({"readProduct", "writeProduct", "readStore", "writeStore"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"read", "write"})
+     * @Groups({"readProduct", "writeProduct", "readStore", "writeStore"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="float")
-     * @Groups({"read", "write"})
+     * @Groups({"readProduct", "writeProduct", "readStore", "writeStore"})
      */
     private $price;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\ProductDetail", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\ProductDetail", cascade={"persist"}, orphanRemoval=true)
      * @ORM\JoinTable(name="product_detail_union",
      *     joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="detail_id", referencedColumnName="id", unique=true)}
      * )
-     * @Groups({"read", "write"})
+     * @Groups({"readProduct", "writeProduct", "readStore", "writeStore"})
      */
     private $details;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Store", inversedBy="products")
+     * @ORM\JoinColumn(name="store_id", referencedColumnName="id")
+     * @Groups({"readProduct", "writeProduct"})
+     */
+    private $store;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist", "remove"})
+     * @Groups({"readProduct", "writeProduct", "readStore", "writeStore"})
+     */
+    private $image;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\ProductArea")
+     * @ORM\JoinColumn(nullable=false)
+     * @Groups({"readProduct", "writeProduct", "readStore", "writeStore"})
+     */
+    private $area;
 
     public function __construct()
     {
         $this->details = new ArrayCollection();
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id): void
+    {
+        $this->id = $id;
     }
 
     public function getId(): ?int
@@ -126,6 +154,42 @@ class Product
                 $detail->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStore(): ?Store
+    {
+        return $this->store;
+    }
+
+    public function setStore(?Store $store): self
+    {
+        $this->store = $store;
+
+        return $this;
+    }
+
+    public function getImage(): ?Image
+    {
+        return $this->image;
+    }
+
+    public function setImage(?Image $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getArea(): ?ProductArea
+    {
+        return $this->area;
+    }
+
+    public function setArea(?ProductArea $area): self
+    {
+        $this->area = $area;
 
         return $this;
     }
