@@ -95,6 +95,9 @@
     "fig/link-util": {
         "version": "1.1.1"
     },
+    "gesdinet/jwt-refresh-token-bundle": {
+        "version": "v0.9.1"
+    },
     "hoa/compiler": {
         "version": "3.17.08.08"
     },
@@ -413,6 +416,9 @@
     },
     "symfony/serializer": {
         "version": "v5.0.8"
+    },
+    "symfony/serializer-pack": {
+        "version": "v1.0.3"
     },
     "symfony/service-contracts": {
         "version": "v2.0.1"

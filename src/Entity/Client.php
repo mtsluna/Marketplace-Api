@@ -56,6 +56,13 @@ class Client
      */
     private $purchases;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\User", cascade={"persist", "remove"})
+     * @ORM\JoinColumn()
+     * @Groups({"read", "write"})
+     */
+    private $user;
+
     public function __construct()
     {
         $this->purchases = new ArrayCollection();
@@ -141,6 +148,18 @@ class Client
                 $purchase->setClient(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
