@@ -30,6 +30,7 @@ security:
             pattern: ^/api/clients
             stateless: true
             anonymous: true
+            methods: [POST]
         api:
             pattern:  ^/api
             stateless: true
@@ -53,7 +54,8 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api/clients, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/clients, methods: [GET, PUT, DELETE], roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/clients, methods: [POST], roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/stores, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/login/refresh, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
