@@ -26,6 +26,11 @@ security:
             pattern:  ^/api/register
             stateless: true
             anonymous: true
+        stores:
+            pattern: ^/api/stores
+            stateless: true
+            anonymous: true
+            methods: [POST, GET]
         clients:
             pattern: ^/api/clients
             stateless: true
@@ -56,7 +61,8 @@ security:
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/clients, methods: [GET, PUT, DELETE], roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/clients, methods: [POST], roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api/stores, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/stores, methods: [GET, POST], roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/stores, methods: [PUT, DELETE], roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/login/refresh, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
         # - { path: ^/admin, roles: ROLE_ADMIN }
