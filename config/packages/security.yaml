@@ -48,6 +48,36 @@ security:
             pattern: ^/api/login/refresh
             stateless: true
             anonymous: true
+        cities:
+            pattern: ^/api/cities
+            stateless: true
+            anonymous: true
+            methods: [GET]
+        states:
+            pattern: ^/api/states
+            stateless: true
+            anonymous: true
+            methods: [GET]
+        countries:
+            pattern: ^/api/countries
+            stateless: true
+            anonymous: true
+            methods: [GET]
+        products:
+            pattern: ^/api/products
+            stateless: true
+            anonymous: true
+            methods: [GET]
+        storeareas:
+            pattern: ^/api/storeareas
+            stateless: true
+            anonymous: true
+            methods: [GET]
+        productareas:
+            pattern: ^/api/productareas
+            stateless: true
+            anonymous: true
+            methods: [GET]
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -63,6 +93,12 @@ security:
         - { path: ^/api/clients, methods: [POST], roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/stores, methods: [GET, POST], roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/stores, methods: [PUT, DELETE], roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/cities, methods: [GET], roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/states, methods: [GET], roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/countries, methods: [GET], roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/products, methods: [GET], roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/storeareas, methods: [GET], roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/productareas, methods: [GET], roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/login/refresh, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
         # - { path: ^/admin, roles: ROLE_ADMIN }
