@@ -36,18 +36,6 @@ security:
             stateless: true
             anonymous: true
             methods: [POST]
-        api:
-            pattern:  ^/api
-            stateless: true
-            anonymous: false
-            provider: entity_provider
-            guard:
-                authenticators:
-                    - lexik_jwt_authentication.jwt_token_authenticator
-        refresh:
-            pattern: ^/api/login/refresh
-            stateless: true
-            anonymous: true
         cities:
             pattern: ^/api/cities
             stateless: true
@@ -78,6 +66,18 @@ security:
             stateless: true
             anonymous: true
             methods: [GET]
+        api:
+            pattern:  ^/api
+            stateless: true
+            anonymous: false
+            provider: entity_provider
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
+        refresh:
+            pattern: ^/api/login/refresh
+            stateless: true
+            anonymous: true
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
