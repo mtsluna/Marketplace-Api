@@ -16,8 +16,35 @@ class CreateImageAction
             throw new BadRequestHttpException('"file" is required');
         }
 
+        $cFile = new \CURLFile($uploadedFile);
+
+        $ch = curl_init();
+
+        $headers = array(
+            'Authorization: Client-ID b35570d8e97a268'
+        );
+
+        $data = array(
+            'image' => $cFile
+        );
+
+        $options = array(
+            CURLOPT_URL => "https://api.imgur.com/3/upload",
+            CURLOPT_POST => true,
+            CURLOPT_HEADER => false,
+            CURLOPT_HTTPHEADER => $headers,
+            CURLOPT_POSTFIELDS => $data,
+            CURLOPT_RETURNTRANSFER => true
+        );
+
+        curl_setopt_array($ch, $options);
+        $result = curl_exec($ch);
+        $json = json_decode($result, true);
+
+        $url = $json['data']['link'];
+
         $image = new Image();
-        $image->file = $uploadedFile;
+        $image->filePath = $url;
 
         return $image;
     }

@@ -73,7 +73,7 @@ class Image
     /**
      * @var File|null
      *
-     * @Assert\NotNull(groups={"media_object_create"})
+     * @Groups({"media_object_create"})
      * @Assert\File(
      *     maxSize="5M",
      *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg", "image/jpg"}
@@ -99,7 +99,7 @@ class Image
      */
     public function getUrl(): ?string
     {
-        return '/media/'.$this->filePath;
+        return $this->filePath;
     }
 
 }
