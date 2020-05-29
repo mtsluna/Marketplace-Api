@@ -159,6 +159,20 @@ class Client
 
     public function setUser(User $user): self
     {
+
+        $roles = $user->getRoles();
+        if($roles == null) {
+            $roles = [];
+            array_push($roles, 'ROLE_CLIENT');
+            $user->setRoles($roles);
+        }
+        else{
+            if (count($user->getRoles()) == 0) {
+                array_push($roles, 'ROLE_CLIENT');
+                $user->setRoles($roles);
+            }
+        }
+
         $this->user = $user;
 
         return $this;
