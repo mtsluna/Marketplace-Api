@@ -23,7 +23,8 @@ final class AddPaginationHeaders implements EventSubscriberInterface
             $response = $event->getResponse();
             $response->headers->add([
                 'Content-Range' => \sprintf('%u-%u/%u', $from, $to, $data->getTotalItems()),
-                'Page-Range' => \sprintf('%u/%u', $currentPage, $lastPage)
+                'Page-Range' => \sprintf('%u/%u', $currentPage, $lastPage),
+                'Access-Control-Expose-Headers' => 'Page-Range, Content-Range'
             ]);
         }
     }
