@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ApiResource(
@@ -14,6 +15,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     denormalizationContext={"groups"={"writeProduct"}}
  * )
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false, hardDelete=true)
  */
 class Product
 {
@@ -27,7 +29,7 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"readProduct", "writeProduct", "readStore", "writeStore"})
+     * @Groups({"read", "write", "readProduct", "writeProduct", "readStore", "writeStore"})
      */
     private $name;
 
@@ -39,7 +41,7 @@ class Product
 
     /**
      * @ORM\Column(type="float")
-     * @Groups({"readProduct", "writeProduct", "readStore", "writeStore"})
+     * @Groups({"read", "write", "readProduct", "writeProduct", "readStore", "writeStore"})
      */
     private $price;
 
@@ -72,6 +74,29 @@ class Product
      * @Groups({"readProduct", "writeProduct", "readStore", "writeStore"})
      */
     private $area;
+
+    /**
+
+     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
+
+     */
+    private $deletedAt;
+
+    /**
+     * @return mixed
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
+    }
+
+    /**
+     * @param mixed $deletedAt
+     */
+    public function setDeletedAt($deletedAt): void
+    {
+        $this->deletedAt = $deletedAt;
+    }
 
     public function __construct()
     {
